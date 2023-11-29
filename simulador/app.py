@@ -53,9 +53,9 @@ def ajustar_produccion(produccion_por_cultivo, temperatura):
         # Definir ajustes para cada cultivo
         ajustes = {
             'PAPA': -500000,
-            'CAÑA PANELERA': -1000,
-            'PLATANO': -3000,
-            'ZANAHORIA': -8000,
+            'CAÑA PANELERA': -100,
+            'PLATANO': -300,
+            'ZANAHORIA': -800,
             'TOMATE INVERNADERO': -500000
         }
         # Aplicar el ajuste correspondiente a cada cultivo
