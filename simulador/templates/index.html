@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador</title>
+    {{ bootstrap.load_css() }}
+    <!-- Agrega Bootstrap para estilos -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <style>
+      #info {
+        background-color: aqua;
+        border-radius: 10px;
+        text-align: center;
+        align-self: center;
+        padding: 30px;
+      }
+      .form-range::before {
+        content: "🌨"; /* Código Unicode para un sol */
+        margin-right: 10px;
+      }
+
+      .form-range::after {
+        content: "☀"; /* Código Unicode para una luna */
+        margin-left: 10px;
+      }
+
+      .btn {
+        margin-top: 50px;
+      }
+      .titulo{
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        text-align: center;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="titulo">Producción en departamento de BOYACÁ en diferenes temporadas</h1>
+      <div >
+        <div class="row">
+          <div class="col" id="info">
+            <table>
+              <thead>
+                <h5>Productos con mayor produccion</h5>
+                <tr>
+                  <th>Cultivo</th>
+                  <th>Producción Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for index, row in data.iterrows() %}
+                <tr>
+                  <td>{{ row['cultivo'] }}</td>
+                  <td>{{row['produccion_t'] }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="col">{{ plot_html|safe }}</div>
+          <div class="col">{{ plot_html2|safe }}</div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <form method="post" action="/procesar">
+              <label for="customRange1" class="form-label">Estaciones</label>
+              <br />
+              <input
+                type="range"
+                class="form-range"
+                name="temperatura"
+                id="customRange1"
+                min="-10"
+                max="70"
+                value="20"
+                step="1"
+              />
+              <span id="rangeValue">20 °C</span>
+              <button type="submit" class="btn btn-warning">GO</button>
+            </form>
+           
+          </div>
+          <div class="col">{{ plot_html3|safe }}</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Función para actualizar el valor del span con el valor actual del rango
+      function updateRangeValue() {
+        var rangeValue = document.getElementById("customRange1").value;
+        document.getElementById("rangeValue").innerText = rangeValue + " °C";
+      }
+
+      // Función que se llama cuando se presiona el botón "GO"
+      function goAction() {
+        var rangeValue = document.getElementById("customRange1").value;
+        alert("Seleccionaste " + rangeValue + " °C");
+      }
+
+      // Agrega un evento para actualizar el valor del span cuando cambia el rango
+      document
+        .getElementById("customRange1")
+        .addEventListener("input", updateRangeValue);
+    </sc
